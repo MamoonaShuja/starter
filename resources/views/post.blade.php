@@ -168,7 +168,9 @@ figure img{width:300px;}
                             <div class="item-box-blog-text">
                                 <p>{!! $post->content !!}</p>
                             </div>
-                            <div class="mt"> <a href="#" tabindex="0" class="btn bg-blue-ui white read">read more</a> </div>
+                            <div class="mt"> 
+                              <a href="javascript:void" data-route="{{route('index.post.delete' , $post->id)}}" tabindex="0" class="btn bg-blue-ui white delete">Delete</a>
+                             </div>
                             <!--Read More Button-->
                             </div>
                         </div>
@@ -185,7 +187,32 @@ figure img{width:300px;}
 @endsection
 @section('scripts')
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+      <script>
+          $(document).on('click' , '.delete' , function(){
+            Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              $.get($(this).data('route') , function(res){
+                Swal.fire(
+                    'Deleted!',
+                    'Your data has been deleted.',
+                    'success'
+                  )
+                  setInterval(() => {
+                    window.location = "{{route('index.post.index')}}"
+                  }, 2000);
+              })
+              }
+            });
+          })
+      </script>
       @if (session('success'))
           
       <script>

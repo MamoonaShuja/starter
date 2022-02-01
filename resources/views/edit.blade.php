@@ -218,7 +218,6 @@
                 cache: false,
                 data : new FormData($('#destroy')[0]),
                 success:function(result){
-                  console.log("coming");
                   Swal.fire(
                     'Deleted!',
                     'Your data has been deleted.',

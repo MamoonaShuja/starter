@@ -22,6 +22,7 @@ Route::name('index.')->prefix('index')->group(function () {
     Route::view('/donee', 'demo' , ['name' => 'done'] );
     Route::middleware(['role:user'])->group(function () {
         Route::resource('/post', PostController::class);
+        Route::get('/post/del/{post}' , [PostController::class , 'destroy'])->name('post.delete');
         Route::resource('order' , OrderController::class)->names([
             'create' => 'order.new'         
         ]);
